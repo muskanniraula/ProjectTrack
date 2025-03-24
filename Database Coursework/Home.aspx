@@ -22,8 +22,8 @@
             padding: 15px 0;
             margin-bottom: 24px;
             position: sticky; /* Make navbar sticky */
-    top: 0; /* Stay at the top of the viewport */
-    z-index: 1000;
+            top: 0; /* Stay at the top of the viewport */
+            z-index: 1000;
         }
         .navbar-brand {
             font-weight: 500;
@@ -165,6 +165,27 @@
         }
         #GridView1 tr:hover, #GridView2 tr:hover {
             background-color: #f1f3f5;
+        }
+        /* Task Status Chart Styling */
+        #Chart3 {
+            margin: 10px auto;
+            display: block;
+        }
+        #Chart3 .Series1 {
+            font-weight: 500;
+        }
+        /* Milestone Status Chart Styling */
+        #Chart4 {
+            margin: 10px auto;
+            display: block;
+        }
+        /* Consistent chart colors across the dashboard */
+        .chart-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 15px 0;
         }
     </style>
                           <!-- Navigation Bar -->
@@ -312,39 +333,96 @@
                 </div>
             </div>
             
+            <!-- First row with User Role Distribution Pie Chart and Task Status Bar Chart -->
             <div class="row mb-4">
                 <div class="col-md-6">
                     <div class="chart-card">
-                        <h5>Upcoming Tasks</h5>
-                        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource8" CssClass="table table-borderless">
-                            <Columns>
-                                <asp:BoundField DataField="TASKNAME" HeaderText="Task Name" SortExpression="TASKNAME" />
-                                <asp:BoundField DataField="PROJECTNAME" HeaderText="Project" SortExpression="PROJECTNAME" />
-                                <asp:BoundField DataField="TASKDUEDATE" HeaderText="Due Date" SortExpression="TASKDUEDATE" />
-                            </Columns>
-                        </asp:GridView>
+                        <h5>User Roles Distribution</h5>
+                        <div class="chart-container">
+                            <asp:Chart ID="Chart2" runat="server" DataSourceID="SqlDataSource6" Width="400px" Height="300px">
+                                <Series>
+                                    <asp:Series ChartType="Pie" Name="Series1" XValueMember="USERROLE" YValueMembers="ROLECOUNT" 
+                                        IsValueShownAsLabel="true" LabelFormat="{0}%" BorderColor="White" BorderWidth="2">
+                                    </asp:Series>
+                                </Series>
+                                <ChartAreas>
+                                    <asp:ChartArea Name="ChartArea1" BackColor="Transparent">
+                                        <AxisX LineColor="#e9ecef"></AxisX>
+                                        <AxisY LineColor="#e9ecef"></AxisY>
+                                    </asp:ChartArea>
+                                </ChartAreas>
+                                <Legends>
+                                    <asp:Legend Alignment="Center" Docking="Bottom" IsDockedInsideChartArea="false" BackColor="Transparent"></asp:Legend>
+                                </Legends>
+                            </asp:Chart>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="col-md-6">
                     <div class="chart-card">
-                        <h5>User Roles Distribution</h5>
-                        <asp:Chart ID="Chart2" runat="server" DataSourceID="SqlDataSource6" Width="400px" Height="300px">
-                            <Series>
-                                <asp:Series ChartType="Pie" Name="Series1" XValueMember="USERROLE" YValueMembers="ROLECOUNT" 
-                                    IsValueShownAsLabel="true" LabelFormat="{0}%" BorderColor="White" BorderWidth="2">
-                                </asp:Series>
-                            </Series>
-                            <ChartAreas>
-                                <asp:ChartArea Name="ChartArea1" BackColor="Transparent">
-                                    <AxisX LineColor="#e9ecef"></AxisX>
-                                    <AxisY LineColor="#e9ecef"></AxisY>
-                                </asp:ChartArea>
-                            </ChartAreas>
-                            <Legends>
-                                <asp:Legend Alignment="Center" Docking="Bottom" IsDockedInsideChartArea="false" BackColor="Transparent"></asp:Legend>
-                            </Legends>
-                        </asp:Chart>
+                        <h5>Task Status Distribution</h5>
+                        <div class="chart-container">
+                            <asp:Chart ID="Chart3" runat="server" DataSourceID="SqlDataSource9" Width="400px" Height="300px">
+                                <Series>
+                                    <asp:Series Name="Series1" XValueMember="TASKSTATUS" YValueMembers="STATUSCOUNT" 
+                                        ChartType="Column" IsValueShownAsLabel="true" BorderWidth="2" BorderColor="White"
+                                        Palette="BrightPastel">
+                                    </asp:Series>
+                                </Series>
+                                <ChartAreas>
+  <asp:ChartArea Name="ChartArea1" BackColor="Transparent">
+    <AxisX LineColor="#e9ecef">
+        
+    </AxisX>
+</asp:ChartArea>
+
+</ChartAreas>
+                                
+                            </asp:Chart>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Second row with Milestone Status Pie Chart and Upcoming Tasks -->
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="chart-card">
+                        <h5>Milestone Status Distribution</h5>
+                        <div class="chart-container">
+                            <asp:Chart ID="Chart1" runat="server" DataSourceID="SqlDataSource10" Width="400px" Height="300px">
+                                <Series>
+                                    <asp:Series ChartType="Pie" Name="Series1" XValueMember="MILESTONESTATUS" YValueMembers="MILESTONECOUNT"
+                                        IsValueShownAsLabel="true" LabelFormat="{0}%" BorderColor="White" BorderWidth="2"
+                                        Palette="BrightPastel">
+                                    </asp:Series>
+                                </Series>
+                                <ChartAreas>
+                                    <asp:ChartArea Name="ChartArea1" BackColor="Transparent">
+                                        <AxisX LineColor="#e9ecef"></AxisX>
+                                        <AxisY LineColor="#e9ecef"></AxisY>
+                                    </asp:ChartArea>
+                                </ChartAreas>
+                                <Legends>
+                                    <asp:Legend Alignment="Center" Docking="Bottom" IsDockedInsideChartArea="false" BackColor="Transparent"></asp:Legend>
+                                </Legends>
+                            </asp:Chart>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="chart-card">
+                        <h5>Upcoming Tasks</h5>
+                        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource8" CssClass="table table-borderless">
+    <Columns>
+        <asp:BoundField DataField="TaskName" HeaderText="Task Name" />
+        <asp:BoundField DataField="ProjectName" HeaderText="Project" />
+        <asp:BoundField DataField="TaskStartDate" HeaderText="Start Date" DataFormatString="{0:d}" />
+        <asp:BoundField DataField="TaskDueDate" HeaderText="Due Date" DataFormatString="{0:d}" />
+    </Columns>
+</asp:GridView>
                     </div>
                 </div>
             </div>
@@ -388,25 +466,25 @@
             ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" 
             SelectCommand="SELECT COUNT(*) AS InProgressOrNotStartedTasks FROM Tasks WHERE TaskStatus = 'In Progress' OR TaskStatus = 'Not Started'"></asp:SqlDataSource>
         
-        <asp:SqlDataSource ID="SqlDataSource8" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" SelectCommand="SELECT T.TaskName, P.ProjectName, T.TaskDueDate FROM Tasks T JOIN Milestones M ON T.MilestoneID = M.MilestoneID JOIN Projects P ON M.ProjectID = P.ProjectID WHERE T.TaskStatus != 'Completed' AND ROWNUM &lt;= 5 ORDER BY T.TaskDueDate ASC"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="SqlDataSource8" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" 
+    ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" 
+    SelectCommand="SELECT TaskName, ProjectName, TaskStartDate, TaskDueDate FROM (SELECT T.TaskName, P.ProjectName, T.TaskStartDate, T.TaskDueDate FROM Tasks T JOIN Milestones M ON T.MilestoneID = M.MilestoneID JOIN Projects P ON M.ProjectID = P.ProjectID WHERE T.TaskStatus != 'Completed' AND T.TaskStartDate >= TRUNC(SYSDATE) ORDER BY TaskStartDate ASC) WHERE ROWNUM <= 5">
+</asp:SqlDataSource>
         
         <asp:SqlDataSource ID="SqlDataSource6" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" 
             ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" 
             SelectCommand="SELECT UserRole, COUNT(UserID) AS RoleCount FROM Users GROUP BY UserRole"></asp:SqlDataSource>
         
-        <asp:SqlDataSource ID="SqlDataSource7" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" 
-            ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" 
-            SelectCommand="SELECT m.MilestoneID, m.MilestoneName, m.MilestoneStartDate, m.MilestoneDueDate, p.ProjectName, COUNT(t.TaskID) AS TaskCount, m.MilestoneStatus FROM Milestones m JOIN Projects p ON m.ProjectID = p.ProjectID LEFT JOIN Tasks t ON m.MilestoneID = t.MilestoneID WHERE m.MilestoneDueDate > SYSDATE GROUP BY m.MilestoneID, m.MilestoneName, m.MilestoneStartDate, m.MilestoneDueDate, p.ProjectName, m.MilestoneStatus ORDER BY m.MilestoneDueDate"></asp:SqlDataSource>
-        <br />
-        <br />
-        <br />
-        <asp:SqlDataSource ID="SqlDataSource9" runat="server"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="SqlDataSource7" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" SelectCommand="SELECT MilestoneID, MilestoneName, MilestoneStartDate, MilestoneDueDate, ProjectName, TaskCount, MilestoneStatus FROM (SELECT m.MilestoneID, m.MilestoneName, m.MilestoneStartDate, m.MilestoneDueDate, p.ProjectName, COUNT(t.TaskID) AS TaskCount, m.MilestoneStatus FROM Milestones m JOIN Projects p ON m.ProjectID = p.ProjectID LEFT JOIN Tasks t ON m.MilestoneID = t.MilestoneID WHERE m.MilestoneStartDate >= TRUNC(SYSDATE) GROUP BY m.MilestoneID, m.MilestoneName, m.MilestoneStartDate, m.MilestoneDueDate, p.ProjectName, m.MilestoneStatus ORDER BY m.MilestoneStartDate ASC) WHERE ROWNUM <= 5"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="SqlDataSource9" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" SelectCommand="SELECT TASKSTATUS, COUNT(*) AS StatusCount FROM Tasks GROUP BY TASKSTATUS"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="SqlDataSource5" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" SelectCommand="SELECT MILESTONESTATUS, COUNT(*) AS MilestoneCount FROM Milestones GROUP BY MILESTONESTATUS"></asp:SqlDataSource>
     </form>
-        </div>
+    </div>
 
 
     <!-- Bootstrap JS and Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
-</body>
+    <asp:SqlDataSource ID="SqlDataSource10" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" SelectCommand="SELECT MILESTONESTATUS, COUNT(*) AS MilestoneCount FROM Milestones GROUP BY MILESTONESTATUS"></asp:SqlDataSource>
+    </body>
 </html>
