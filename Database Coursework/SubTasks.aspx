@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SubTasks.aspx.cs" Inherits="Database_Coursework.SubTasks" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="SubTasks.aspx.cs" Inherits="Database_Coursework.SubTasks" %>
 
 <!DOCTYPE html>
 
@@ -6,51 +6,60 @@
 <head runat="server">
     <title>SubTasks Management</title>
     <link href="/Content/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    
     <style>
-                       body {
-    background-color: #f8f9fa;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #495057;
-    line-height: 1.6;
-}
-.navbar {
-    background-color: #ffffff;
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
-    padding: 15px 0;
-    margin-bottom: 24px;
-    position: sticky; /* Make navbar sticky */
-    top: 0; /* Stay at the top of the viewport */
-    z-index: 1000;
-}
-.navbar-brand {
-    font-weight: 500;
-    font-size: 1.3rem;
-    color: #3a506b;
-    letter-spacing: 0.5px;
-}
-.nav-link {
-    color: #5a6978;
-    font-weight: 400;
-    padding: 10px 16px;
-    position: relative;
-}
-.nav-link:hover {
-    color: #3a506b;
-}
-.active:after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 16px;
-    right: 16px;
-    height: 2px;
-    background-color: #3a506b;
-}
-        .page-title {
-            color: #212529;
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #495057;
+            line-height: 1.6;
+        }
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+            padding: 15px 0;
+            margin-bottom: 24px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar-brand {
+            font-weight: 500;
+            font-size: 1.3rem;
+            color: #3a506b;
+            letter-spacing: 0.5px;
+        }
+        .nav-link {
+            color: #5a6978;
+            font-weight: 400;
+            padding: 10px 16px;
+            position: relative;
+        }
+        .nav-link:hover {
+            color: #3a506b;
+        }
+        .active:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 16px;
+            right: 16px;
+            height: 2px;
+            background-color: #3a506b;
+        }
+        
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 25px;
             padding-bottom: 15px;
             border-bottom: 1px solid #dee2e6;
+        }
+        .page-title {
+            color: #212529;
+            margin: 0;
         }
         .form-group {
             margin-bottom: 15px;
@@ -64,12 +73,6 @@
         }
         .btn-space {
             margin-right: 5px;
-        }
-        .form-view-container {
-            background-color: #f1f3f5;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 25px;
         }
         #GridView1 {
             width: 100%;
@@ -101,99 +104,172 @@
             margin-bottom: 5px;
             display: inline-block;
         }
-        #FormView1 {
-            width: 100%;
+        
+        /* Status colors */
+        .subtask-status-pending {
+            background-color: #fff3cd;
         }
-        #FormView1 .form-control {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ced4da;
-            border-radius: 4px;
+        .subtask-status-completed {
+            background-color: #d4edda;
         }
-        #FormView1 .btn {
-            margin-top: 10px;
+        .subtask-status-inprogress {
+            background-color: #cce5ff;
         }
-        .field-label {
-            font-weight: bold;
-            margin-bottom: 5px;
-            display: block;
+        
+        
+        /* Modal styles */
+        .modal-header {
+            background-color: #3a506b;
+            color: white;
         }
-        .field-value {
-            margin-bottom: 15px;
+        .modal-body .form-group {
+            margin-bottom: 1rem;
         }
-    </style>
-                                             <!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-        <a class="navbar-brand" href="Home.aspx">
-            <i class="fas fa-tasks mr-2"></i>ProjectTrack
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="Home.aspx">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Users.aspx">Users</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Projects.aspx">Projects</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Milestones.aspx">Milestones</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Tasks.aspx">Tasks</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="SubTasks.aspx">SubTasks</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Comments.aspx">Comments</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Resources.aspx">Resources</a>
-                </li>
-                <!-- Complex Forms Dropdown -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="complexFormsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Complex Forms
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="complexFormsDropdown">
-                        <li><a class="dropdown-item" href="ComplexForm(TopPerformer).aspx">Top Performer</a></li>
-                        <li><a class="dropdown-item" href="ComplexForm(UsersProjects).aspx">Users Projects</a></li>
-                        <li><a class="dropdown-item" href="ComplexForm(projectsmilestones).aspx">Projects Milestones</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+                /* Edit Button (initial state) */
+#GridView1 a[href*="Edit"], 
+#GridView1 input[value="Edit"] {
+    background-color: #6c757d; /* Grey */
+    color: white;
+    border-color: #6c757d;
+}
 
+/* Delete Button */
+#GridView1 a[href*="Delete"], 
+#GridView1 input[value="Delete"] {
+    background-color: #dc3545; /* Red */
+    color: white;
+    border-color: #dc3545;
+}
+
+/* Update Button (appears during edit) */
+#GridView1 a[href*="Update"], 
+#GridView1 input[value="Update"] {
+    background-color: #28a745; /* Green */
+    color: white;
+    border-color: #28a745;
+}
+
+/* Cancel Button (appears during edit) */
+#GridView1 a[href*="Cancel"], 
+#GridView1 input[value="Cancel"] {
+    background-color: #7f7f7f; /* Yellow */
+    color: #ffffff;
+    border-color: #7f7f7f;
+}
+
+/* Hover states for all buttons */
+#GridView1 a[href*="Edit"]:hover, 
+#GridView1 input[value="Edit"]:hover,
+#GridView1 a[href*="Delete"]:hover, 
+#GridView1 input[value="Delete"]:hover,
+#GridView1 a[href*="Update"]:hover, 
+#GridView1 input[value="Update"]:hover,
+#GridView1 a[href*="Cancel"]:hover, 
+#GridView1 input[value="Cancel"]:hover {
+    opacity: 0.85;
+    color: white;
+}
+
+/* Button spacing and basic styles */
+#GridView1 .btn-space {
+    margin-right: 5px;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    border-radius: 0.2rem;
+}
+
+/* Delete button confirmation dialog */
+#GridView1 a[href*="Delete"], 
+#GridView1 input[value="Delete"] {
+    cursor: pointer;
+}
+
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
-        
+        <!-- Navigation Bar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="Home.aspx">
+                    <i class="mr-2"></i>ProjectTrack
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="Home.aspx">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Users.aspx">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Projects.aspx">Projects</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Milestones.aspx">Milestones</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Tasks.aspx">Tasks</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="SubTasks.aspx">SubTasks</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Comments.aspx">Comments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Resources.aspx">Resources</a>
+                        </li>
+                        <!-- Complex Forms Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="complexFormsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Complex Forms
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="complexFormsDropdown">
+                                <li><a class="dropdown-item" href="ComplexForm(TopPerformer).aspx">Top Performer</a></li>
+                                <li><a class="dropdown-item" href="ComplexForm(UsersProjects).aspx">Users Projects</a></li>
+                                <li><a class="dropdown-item" href="ComplexForm(projectsmilestones).aspx">Projects Milestones</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
         <div class="container">
-            <h2 class="page-title">SubTasks Management</h2>
+            <!-- Modified header with insert button -->
+            <div class="page-header">
+                <h2 class="page-title">SubTasks Management</h2>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#insertModal">
+                    <i class="fas fa-plus"></i> Add New SubTask
+                </button>
+            </div>
+            
             <div class="grid-container">
                 <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="SUBTASKID" DataSourceID="SqlDataSource1" CssClass="table table-striped table-bordered table-hover">
                     <Columns>
                         <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" ButtonType="Button" ControlStyle-CssClass="btn btn-sm btn-outline-primary btn-space" />
-                        <asp:BoundField DataField="SUBTASKID" HeaderText="SUBTASKID" ReadOnly="True" SortExpression="SUBTASKID" />
-                        <asp:BoundField DataField="USERID" HeaderText="USERID" SortExpression="USERID" />
-                        <asp:BoundField DataField="TASKID" HeaderText="TASKID" SortExpression="TASKID" />
-                        <asp:BoundField DataField="SUBTASKNAME" HeaderText="SUBTASKNAME" SortExpression="SUBTASKNAME" />
-                        <asp:BoundField DataField="SUBTASKSTARTDATE" HeaderText="SUBTASKSTARTDATE" SortExpression="SUBTASKSTARTDATE" />
-                        <asp:BoundField DataField="SUBTASKDUEDATE" HeaderText="SUBTASKDUEDATE" SortExpression="SUBTASKDUEDATE" />
-                        <asp:BoundField DataField="SUBTASKSTATUS" HeaderText="SUBTASKSTATUS" SortExpression="SUBTASKSTATUS" />
+                        <asp:BoundField DataField="SUBTASKID" HeaderText="ID" ReadOnly="True" SortExpression="SUBTASKID" />
+                        <asp:BoundField DataField="USERID" HeaderText="USER ID" SortExpression="USERID" />
+                        <asp:BoundField DataField="TASKID" HeaderText="TASK ID" SortExpression="TASKID" />
+                        <asp:BoundField DataField="SUBTASKNAME" HeaderText="NAME" SortExpression="SUBTASKNAME" />
+                        <asp:BoundField DataField="SUBTASKSTARTDATE" HeaderText="START DATE" SortExpression="SUBTASKSTARTDATE" DataFormatString="{0:yyyy-MM-dd}" />
+                        <asp:BoundField DataField="SUBTASKDUEDATE" HeaderText="DUE DATE" SortExpression="SUBTASKDUEDATE" DataFormatString="{0:yyyy-MM-dd}" />
+                        <asp:BoundField DataField="SUBTASKSTATUS" HeaderText="STATUS" SortExpression="SUBTASKSTATUS" />
                     </Columns>
                 </asp:GridView>
             </div>
-            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" DeleteCommand="DELETE FROM &quot;SUBTASKS&quot; WHERE &quot;SUBTASKID&quot; = :SUBTASKID" InsertCommand="INSERT INTO &quot;SUBTASKS&quot; (&quot;SUBTASKID&quot;, &quot;USERID&quot;, &quot;TASKID&quot;, &quot;SUBTASKNAME&quot;, &quot;SUBTASKSTARTDATE&quot;, &quot;SUBTASKDUEDATE&quot;, &quot;SUBTASKSTATUS&quot;) VALUES (:SUBTASKID, :USERID, :TASKID, :SUBTASKNAME, :SUBTASKSTARTDATE, :SUBTASKDUEDATE, :SUBTASKSTATUS)" ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" SelectCommand="SELECT &quot;SUBTASKID&quot;, &quot;USERID&quot;, &quot;TASKID&quot;, &quot;SUBTASKNAME&quot;, &quot;SUBTASKSTARTDATE&quot;, &quot;SUBTASKDUEDATE&quot;, &quot;SUBTASKSTATUS&quot; FROM &quot;SUBTASKS&quot;" UpdateCommand="UPDATE &quot;SUBTASKS&quot; SET &quot;USERID&quot; = :USERID, &quot;TASKID&quot; = :TASKID, &quot;SUBTASKNAME&quot; = :SUBTASKNAME, &quot;SUBTASKSTARTDATE&quot; = :SUBTASKSTARTDATE, &quot;SUBTASKDUEDATE&quot; = :SUBTASKDUEDATE, &quot;SUBTASKSTATUS&quot; = :SUBTASKSTATUS WHERE &quot;SUBTASKID&quot; = :SUBTASKID">
+            
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
+                ConnectionString="<%$ ConnectionStrings:ConnectionString %>" 
+                DeleteCommand="DELETE FROM &quot;SUBTASKS&quot; WHERE &quot;SUBTASKID&quot; = :SUBTASKID" 
+                InsertCommand="INSERT INTO &quot;SUBTASKS&quot; (&quot;SUBTASKID&quot;, &quot;USERID&quot;, &quot;TASKID&quot;, &quot;SUBTASKNAME&quot;, &quot;SUBTASKSTARTDATE&quot;, &quot;SUBTASKDUEDATE&quot;, &quot;SUBTASKSTATUS&quot;) VALUES (:SUBTASKID, :USERID, :TASKID, :SUBTASKNAME, :SUBTASKSTARTDATE, :SUBTASKDUEDATE, :SUBTASKSTATUS)" 
+                ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" 
+                SelectCommand="SELECT &quot;SUBTASKID&quot;, &quot;USERID&quot;, &quot;TASKID&quot;, &quot;SUBTASKNAME&quot;, &quot;SUBTASKSTARTDATE&quot;, &quot;SUBTASKDUEDATE&quot;, &quot;SUBTASKSTATUS&quot; FROM &quot;SUBTASKS&quot;" 
+                UpdateCommand="UPDATE &quot;SUBTASKS&quot; SET &quot;USERID&quot; = :USERID, &quot;TASKID&quot; = :TASKID, &quot;SUBTASKNAME&quot; = :SUBTASKNAME, &quot;SUBTASKSTARTDATE&quot; = :SUBTASKSTARTDATE, &quot;SUBTASKDUEDATE&quot; = :SUBTASKDUEDATE, &quot;SUBTASKSTATUS&quot; = :SUBTASKSTATUS WHERE &quot;SUBTASKID&quot; = :SUBTASKID">
                 <DeleteParameters>
                     <asp:Parameter Name="SUBTASKID" Type="Decimal" />
                 </DeleteParameters>
@@ -217,148 +293,135 @@
                 </UpdateParameters>
             </asp:SqlDataSource>
             
-            <div class="form-view-container">
-                <asp:FormView ID="FormView1" runat="server" DataKeyNames="SUBTASKID" DataSourceID="SqlDataSource1">
-                    <EditItemTemplate>
-                        <div class="form-group">
-                            <span class="field-label">SUBTASKID:</span>
-                            <asp:Label ID="SUBTASKIDLabel1" runat="server" Text='<%# Eval("SUBTASKID") %>' CssClass="form-control-plaintext" />
+            <!-- User dropdown datasource -->
+            <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
+                ConnectionString="<%$ ConnectionStrings:ConnectionString %>" 
+                ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" 
+                SelectCommand="SELECT &quot;USERID&quot;, &quot;USERNAME&quot; FROM &quot;USERS&quot;">
+            </asp:SqlDataSource>
+            
+            <!-- Task dropdown datasource -->
+            <asp:SqlDataSource ID="SqlDataSource3" runat="server" 
+                ConnectionString="<%$ ConnectionStrings:ConnectionString %>" 
+                ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" 
+                SelectCommand="SELECT &quot;TASKID&quot;, &quot;TASKNAME&quot; FROM &quot;TASKS&quot;">
+            </asp:SqlDataSource>
+            
+            <!-- Insert Modal -->
+            <div class="modal fade" id="insertModal" tabindex="-1" aria-labelledby="insertModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="insertModalLabel">Add New SubTask</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="form-group">
-                            <span class="field-label">USERID:</span>
-                            <asp:TextBox ID="USERIDTextBox" runat="server" Text='<%# Bind("USERID") %>' CssClass="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <span class="field-label">TASKID:</span>
-                            <asp:TextBox ID="TASKIDTextBox" runat="server" Text='<%# Bind("TASKID") %>' CssClass="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <span class="field-label">SUBTASKNAME:</span>
-                            <asp:TextBox ID="SUBTASKNAMETextBox" runat="server" Text='<%# Bind("SUBTASKNAME") %>' CssClass="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <span class="field-label">SUBTASKSTARTDATE:</span>
-                            <asp:TextBox ID="SUBTASKSTARTDATETextBox" runat="server" Text='<%# Bind("SUBTASKSTARTDATE") %>' CssClass="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <span class="field-label">SUBTASKDUEDATE:</span>
-                            <asp:TextBox ID="SUBTASKDUEDATETextBox" runat="server" Text='<%# Bind("SUBTASKDUEDATE") %>' CssClass="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <span class="field-label">SUBTASKSTATUS:</span>
-                            <asp:TextBox ID="SUBTASKSTATUSTextBox" runat="server" Text='<%# Bind("SUBTASKSTATUS") %>' CssClass="form-control" />
-                        </div>
-                        <div class="mt-3">
-                            <asp:LinkButton ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update" Text="Update" CssClass="btn btn-primary" />
-                            &nbsp;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" CssClass="btn btn-secondary" />
-                        </div>
-                    </EditItemTemplate>
-                    <InsertItemTemplate>
-                        <div class="form-group">
-                            <span class="field-label">SUBTASKID:</span>
-                            <asp:TextBox ID="SUBTASKIDTextBox" runat="server" Text='<%# Bind("SUBTASKID") %>' CssClass="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <span class="field-label">USERID:</span>
-                            <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource1" DataTextField="USERNAME" DataValueField="USERID" SelectedValue='<%# Bind("USERID") %>' CssClass="form-control">
-                            </asp:DropDownList>
-                            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" SelectCommand="SELECT &quot;USERID&quot;, &quot;USERNAME&quot; FROM &quot;USERS&quot;"></asp:SqlDataSource>
-                        </div>
-                        <div class="form-group">
-                            <span class="field-label">TASKID:</span>
-                            <asp:DropDownList ID="DropDownList2" runat="server" DataSourceID="SqlDataSource2" DataTextField="TASKNAME" DataValueField="TASKID" SelectedValue='<%# Bind("TASKID") %>' CssClass="form-control">
-                            </asp:DropDownList>
-                            <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" SelectCommand="SELECT &quot;TASKID&quot;, &quot;TASKNAME&quot; FROM &quot;TASKS&quot;"></asp:SqlDataSource>
-                        </div>
-                        <div class="form-group">
-                            <span class="field-label">SUBTASKNAME:</span>
-                            <asp:TextBox ID="SUBTASKNAMETextBox" runat="server" Text='<%# Bind("SUBTASKNAME") %>' CssClass="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <span class="field-label">SUBTASKSTARTDATE:</span>
-                            <asp:TextBox ID="SUBTASKSTARTDATETextBox" runat="server" Text='<%# Bind("SUBTASKSTARTDATE") %>' CssClass="form-control" TextMode="Date" />
-                        </div>
-                        <div class="form-group">
-                            <span class="field-label">SUBTASKDUEDATE:</span>
-                            <asp:TextBox ID="SUBTASKDUEDATETextBox" runat="server" Text='<%# Bind("SUBTASKDUEDATE") %>' CssClass="form-control" TextMode="Date" />
-                        </div>
-                        <div class="form-group">
-                            <span class="field-label">SUBTASKSTATUS:</span>
-                            <asp:DropDownList ID="DropDownList3" runat="server" SelectedValue='<%# Bind("SUBTASKSTATUS") %>' CssClass="form-control">
-                                <asp:ListItem>Not Started</asp:ListItem>
-                                <asp:ListItem>In Progress</asp:ListItem>
-                                <asp:ListItem>Completed</asp:ListItem>
-                            </asp:DropDownList>
-                        </div>
-                        <div class="mt-3">
-                            <asp:LinkButton ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert" Text="Insert" CssClass="btn btn-success" />
-                            &nbsp;<asp:LinkButton ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" CssClass="btn btn-secondary" />
-                        </div>
-                    </InsertItemTemplate>
-                    <ItemTemplate>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <span class="field-label">SUBTASKID:</span>
-                                    <div class="field-value">
-                                        <asp:Label ID="SUBTASKIDLabel" runat="server" Text='<%# Eval("SUBTASKID") %>' CssClass="form-control-plaintext" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <span class="field-label">USERID:</span>
-                                    <div class="field-value">
-                                        <asp:Label ID="USERIDLabel" runat="server" Text='<%# Bind("USERID") %>' CssClass="form-control-plaintext" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <span class="field-label">TASKID:</span>
-                                    <div class="field-value">
-                                        <asp:Label ID="TASKIDLabel" runat="server" Text='<%# Bind("TASKID") %>' CssClass="form-control-plaintext" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <span class="field-label">SUBTASKNAME:</span>
-                                    <div class="field-value">
-                                        <asp:Label ID="SUBTASKNAMELabel" runat="server" Text='<%# Bind("SUBTASKNAME") %>' CssClass="form-control-plaintext" />
-                                    </div>
-                                </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label class="form-label">SUBTASKID:</label>
+                                <asp:TextBox ID="txtSubTaskID" runat="server" CssClass="form-control" />
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <span class="field-label">SUBTASKSTARTDATE:</span>
-                                    <div class="field-value">
-                                        <asp:Label ID="SUBTASKSTARTDATELabel" runat="server" Text='<%# Bind("SUBTASKSTARTDATE") %>' CssClass="form-control-plaintext" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <span class="field-label">SUBTASKDUEDATE:</span>
-                                    <div class="field-value">
-                                        <asp:Label ID="SUBTASKDUEDATELabel" runat="server" Text='<%# Bind("SUBTASKDUEDATE") %>' CssClass="form-control-plaintext" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <span class="field-label">SUBTASKSTATUS:</span>
-                                    <div class="field-value">
-                                        <asp:Label ID="SUBTASKSTATUSLabel" runat="server" Text='<%# Bind("SUBTASKSTATUS") %>' CssClass="form-control-plaintext" />
-                                    </div>
-                                </div>
+                            <div class="form-group">
+                                <label class="form-label">USERID:</label>
+                                <asp:DropDownList ID="ddlUserID" runat="server" DataSourceID="SqlDataSource2" 
+                                    DataTextField="USERNAME" DataValueField="USERID" CssClass="form-control">
+                                </asp:DropDownList>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">TASKID:</label>
+                                <asp:DropDownList ID="ddlTaskID" runat="server" DataSourceID="SqlDataSource3" 
+                                    DataTextField="TASKNAME" DataValueField="TASKID" CssClass="form-control">
+                                </asp:DropDownList>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">SUBTASKNAME:</label>
+                                <asp:TextBox ID="txtSubTaskName" runat="server" CssClass="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">SUBTASKSTARTDATE:</label>
+                                <asp:TextBox ID="txtSubTaskStartDate" runat="server" CssClass="form-control" TextMode="Date" />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">SUBTASKDUEDATE:</label>
+                                <asp:TextBox ID="txtSubTaskDueDate" runat="server" CssClass="form-control" TextMode="Date" />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">SUBTASKSTATUS:</label>
+                                <asp:DropDownList ID="ddlSubTaskStatus" runat="server" CssClass="form-control">
+                                    <asp:ListItem>Not Started</asp:ListItem>
+                                    <asp:ListItem>In Progress</asp:ListItem>
+                                    <asp:ListItem>Completed</asp:ListItem>
+                                </asp:DropDownList>
                             </div>
                         </div>
-                        <div class="mt-3">
-                            <asp:LinkButton ID="NewButton" runat="server" CausesValidation="False" CommandName="New" Text="Insert" CssClass="btn btn-success" />
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <asp:Button ID="btnInsert" runat="server" Text="Insert" CssClass="btn btn-primary" OnClick="btnInsert_Click" />
                         </div>
-                    </ItemTemplate>
-                </asp:FormView>
+                    </div>
+                </div>
             </div>
         </div>
     </form>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+    
+    <script type="text/javascript">
+        function closeModal() {
+            var modal = new bootstrap.Modal(document.getElementById('insertModal'));
+            modal.hide();
+        }
+    </script>
 
-       <!-- Bootstrap JS and Popper.js -->
-   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+    <script runat="server">
+        protected void btnInsert_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Get values from the form
+                decimal subTaskId = decimal.Parse(txtSubTaskID.Text);
+                decimal userId = decimal.Parse(ddlUserID.SelectedValue);
+                decimal taskId = decimal.Parse(ddlTaskID.SelectedValue);
+                string subTaskName = txtSubTaskName.Text;
+                DateTime subTaskStartDate = DateTime.Parse(txtSubTaskStartDate.Text);
+                DateTime subTaskDueDate = DateTime.Parse(txtSubTaskDueDate.Text);
+                string subTaskStatus = ddlSubTaskStatus.SelectedValue;
+
+                // Create parameters
+                SqlDataSource1.InsertParameters["SUBTASKID"].DefaultValue = subTaskId.ToString();
+                SqlDataSource1.InsertParameters["USERID"].DefaultValue = userId.ToString();
+                SqlDataSource1.InsertParameters["TASKID"].DefaultValue = taskId.ToString();
+                SqlDataSource1.InsertParameters["SUBTASKNAME"].DefaultValue = subTaskName;
+                SqlDataSource1.InsertParameters["SUBTASKSTARTDATE"].DefaultValue = subTaskStartDate.ToString("yyyy-MM-dd");
+                SqlDataSource1.InsertParameters["SUBTASKDUEDATE"].DefaultValue = subTaskDueDate.ToString("yyyy-MM-dd");
+                SqlDataSource1.InsertParameters["SUBTASKSTATUS"].DefaultValue = subTaskStatus;
+
+                // Execute the insert
+                SqlDataSource1.Insert();
+
+                // Refresh the GridView
+                GridView1.DataBind();
+
+                // Clear the form
+                txtSubTaskID.Text = "";
+                txtSubTaskName.Text = "";
+                txtSubTaskStartDate.Text = "";
+                txtSubTaskDueDate.Text = "";
+                ddlSubTaskStatus.SelectedIndex = 0;
+                ddlUserID.SelectedIndex = 0;
+                ddlTaskID.SelectedIndex = 0;
+
+                // Close the modal
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "closeModal", "closeModal();", true);
+            }
+            catch (Exception ex)
+            {
+                // Handle errors
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "showError", 
+                    $"alert('Error inserting subtask: {ex.Message}');", true);
+            }
+        }
+    </script>
 </body>
 </html>
