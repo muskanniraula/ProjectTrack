@@ -88,6 +88,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="ErrorTesting.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="Milestones.aspx" />
     <Content Include="Projects.aspx" />
@@ -134,6 +135,13 @@
     </Compile>
     <Compile Include="ComplexForm%28UsersProjects%29.aspx.designer.cs">
       <DependentUpon>ComplexForm%28UsersProjects%29.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorTesting.aspx.cs">
+      <DependentUpon>ErrorTesting.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorTesting.aspx.designer.cs">
+      <DependentUpon>ErrorTesting.aspx</DependentUpon>
     </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>

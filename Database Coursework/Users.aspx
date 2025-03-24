@@ -19,6 +19,9 @@
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
     padding: 15px 0;
     margin-bottom: 24px;
+    position: sticky; /* Make navbar sticky */
+    top: 0; /* Stay at the top of the viewport */
+    z-index: 1000;
 }
 .navbar-brand {
     font-weight: 500;
@@ -224,26 +227,6 @@
             </div>
         </InsertItemTemplate>
         <ItemTemplate>
-            <div class="form-group">
-                <span class="form-label">USERID:</span>
-                <asp:Label ID="USERIDLabel" runat="server" Text='<%# Eval("USERID") %>' CssClass="form-control-plaintext" />
-            </div>
-            <div class="form-group">
-                <span class="form-label">USERNAME:</span>
-                <asp:Label ID="USERNAMELabel" runat="server" Text='<%# Bind("USERNAME") %>' CssClass="form-control-plaintext" />
-            </div>
-            <div class="form-group">
-                <span class="form-label">USEREMAIL:</span>
-                <asp:Label ID="USEREMAILLabel" runat="server" Text='<%# Bind("USEREMAIL") %>' CssClass="form-control-plaintext" />
-            </div>
-            <div class="form-group">
-                <span class="form-label">USERCONTACT:</span>
-                <asp:Label ID="USERCONTACTLabel" runat="server" Text='<%# Bind("USERCONTACT") %>' CssClass="form-control-plaintext" />
-            </div>
-            <div class="form-group">
-                <span class="form-label">USERROLE:</span>
-                <asp:Label ID="USERROLELabel" runat="server" Text='<%# Bind("USERROLE") %>' CssClass="form-control-plaintext" />
-            </div>
             <div class="mt-3">
                 <asp:LinkButton ID="NewButton" runat="server" CausesValidation="False" CommandName="New" Text="Insert" CssClass="btn btn-success" />
             </div>

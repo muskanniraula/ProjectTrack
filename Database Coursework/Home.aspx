@@ -21,6 +21,9 @@
             box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
             padding: 15px 0;
             margin-bottom: 24px;
+            position: sticky; /* Make navbar sticky */
+    top: 0; /* Stay at the top of the viewport */
+    z-index: 1000;
         }
         .navbar-brand {
             font-weight: 500;
@@ -394,6 +397,10 @@
         <asp:SqlDataSource ID="SqlDataSource7" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" 
             ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" 
             SelectCommand="SELECT m.MilestoneID, m.MilestoneName, m.MilestoneStartDate, m.MilestoneDueDate, p.ProjectName, COUNT(t.TaskID) AS TaskCount, m.MilestoneStatus FROM Milestones m JOIN Projects p ON m.ProjectID = p.ProjectID LEFT JOIN Tasks t ON m.MilestoneID = t.MilestoneID WHERE m.MilestoneDueDate > SYSDATE GROUP BY m.MilestoneID, m.MilestoneName, m.MilestoneStartDate, m.MilestoneDueDate, p.ProjectName, m.MilestoneStatus ORDER BY m.MilestoneDueDate"></asp:SqlDataSource>
+        <br />
+        <br />
+        <br />
+        <asp:SqlDataSource ID="SqlDataSource9" runat="server"></asp:SqlDataSource>
     </form>
         </div>
 

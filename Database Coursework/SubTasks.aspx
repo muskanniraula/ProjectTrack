@@ -18,6 +18,9 @@
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
     padding: 15px 0;
     margin-bottom: 24px;
+    position: sticky; /* Make navbar sticky */
+    top: 0; /* Stay at the top of the viewport */
+    z-index: 1000;
 }
 .navbar-brand {
     font-weight: 500;
